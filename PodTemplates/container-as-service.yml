@@ -10,4 +10,8 @@ spec:
  containers:
   - name: container-self-service
     image: datascienceops/container-self-service:latest
+    command: ['/usr/bin/python']
+    args: ['/notebook-infrastructure/ContainerAsService/ContainerAsService.py']
+    ports:
+     - containerPort: 8000
  restartPolicy: Never

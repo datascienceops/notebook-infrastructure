@@ -8,8 +8,8 @@ metadata:
     owner: Manasi-Belhe
 spec:
   ports:
-  - port: 4001
-    targetPort: 4001
+  - port: 8000
+    targetPort: 8000
     protocol: TCP
   selector:
     app: container-self-service
