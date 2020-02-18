@@ -5,8 +5,7 @@ metadata:
  namespace: default
  labels:
   app: container-self-service
-  techcontact: manasibelhe@gmail.com
-  owner : Manasi Belhe
+  owner : Manasi-Belhe
 spec:
  containers:
   - name: container-self-service
