@@ -47,4 +47,4 @@ def hello():
         print("Empty input, no button clicked yet")
         return render_template('index.html', form=form)
 if __name__ == "__main__":
-    app.run(port=8000)
+    app.run(host="localhost", port=8000, debug=True)

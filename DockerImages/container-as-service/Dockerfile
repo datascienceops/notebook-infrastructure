@@ -24,6 +24,3 @@ RUN echo "**** install Python ****" && \
 RUN git clone https://github.com/datascienceops/notebook-infrastructure.git
 RUN pip install WTForms
 RUN pip install flask
-
-EXPOSE 8000
-
