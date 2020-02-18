@@ -26,4 +26,4 @@ RUN pip install WTForms
 RUN pip install flask
 
 EXPOSE 8000
-RUN /usr/bin/python /notebook-infrastructure/ContainerAsService/ContainerAsService.py
+
