@@ -24,5 +24,7 @@ RUN echo "**** install Python ****" && \
 RUN git clone https://github.com/datascienceops/notebook-infrastructure.git
 RUN pip install WTForms
 
+RUN ls -lrt
+RUN pwd
 EXPOSE 8000
-CMD ["python notebook-infrastructure/ContainerAsService/ContainerAsService.py"]
+RUN ["python /notebook-infrastructure/ContainerAsService/ContainerAsService.py"]
