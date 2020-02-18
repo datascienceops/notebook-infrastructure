@@ -23,10 +23,7 @@ RUN echo "**** install Python ****" && \
 
 RUN git clone https://github.com/datascienceops/notebook-infrastructure.git
 RUN pip install WTForms
+RUN pip install flask
 
-RUN ls -lrt
-RUN pwd
 EXPOSE 8000
-RUN ls -lrt /notebook-infrastructure/ContainerAsService/
 RUN /usr/bin/python /notebook-infrastructure/ContainerAsService/ContainerAsService.py
-RUN python /notebook-infrastructure/ContainerAsService/ContainerAsService.py
