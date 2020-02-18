@@ -12,7 +12,7 @@ RUN curl -L https://storage.googleapis.com/kubernetes-release/release/${KUBE_LAT
 
 RUN apk --no-cache add git
 
-RUN git clone https://github.com/datascienceops/notebook-infrastructure.git \
+RUN git clone https://github.com/datascienceops/notebook-infrastructure.git
 RUN pip install WTForms
 RUN ls
 RUN pwd
