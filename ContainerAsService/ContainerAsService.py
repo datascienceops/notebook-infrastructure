@@ -8,7 +8,6 @@ app.config.from_object(__name__)
 
 class ReusableForm(Form):
     name = TextField('Name:', validators=[validators.required()])
-    uid = TextField('Name:', validators=[validators.required()])
     email = TextField('Email:', validators=[validators.required(), validators.Email()])
     cname = TextField('Name:', validators=[validators.required()])
     memreq = TextField('Name:', validators=[validators.required()])
@@ -23,11 +22,10 @@ def hello():
         print(form.errors)
         if request.method == 'POST':
             name = request.form['name']
-            uid = request.form['uid']
             email = request.form['email']
             cname = request.form['cname']
-            cpuselection = request.form['cpuselection']
-            memselection = request.form['memselection']
+            cpureq = request.form['cpureq']
+            memreq = request.form['memreq']
             nsselection = request.form['nsselection']
 
         if form.validate():
@@ -47,4 +45,4 @@ def hello():
         print("Empty input, no button clicked yet")
         return render_template('index.html', form=form)
 if __name__ == "__main__":
-    app.run(host="localhost", port=8000, debug=True)
+    app.run(host="0.0.0.0", port=8000, debug=True)
