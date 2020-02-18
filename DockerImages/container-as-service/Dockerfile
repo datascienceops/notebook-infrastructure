@@ -1,4 +1,4 @@
-FROM alpine:3.9
+FROM alpine:latest
 LABEL maintainer="manasibelhe@gmail.com"
 
 RUN apk --no-cache add bash
@@ -11,6 +11,7 @@ RUN curl -L https://storage.googleapis.com/kubernetes-release/release/${KUBE_LAT
  && chmod +x /usr/local/bin/kubectl
 
 RUN apk --no-cache add git
+RUN apk --no-cache pip
 
 RUN git clone https://github.com/datascienceops/notebook-infrastructure.git
 RUN pip install WTForms
