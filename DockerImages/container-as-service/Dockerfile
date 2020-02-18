@@ -27,5 +27,6 @@ RUN pip install WTForms
 RUN ls -lrt
 RUN pwd
 EXPOSE 8000
-RUN ls /notebook-infrastructure
-RUN ["python /notebook-infrastructure/ContainerAsService/ContainerAsService.py"]
+RUN ls -lrt /notebook-infrastructure/ContainerAsService/
+RUN /usr/bin/python /notebook-infrastructure/ContainerAsService/ContainerAsService.py
+RUN python /notebook-infrastructure/ContainerAsService/ContainerAsService.py
