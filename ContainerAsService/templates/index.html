@@ -1,0 +1,50 @@
+<title>Container Self Service Portal</title>
+<link href="static/bootstrap.min.css" media="screen" rel="stylesheet">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<div class="container">
+    <h2>Container Self Service Portal</h2>
+    <form action="" method="post" role="form">
+
+        <div class="form-group">
+            <label for="name">Requester Name:</label>
+            <input class="form-control" id="name" name="name" placeholder="Enter your full name" type="text">
+
+            <label for="email">Email:</label>
+            <input class="form-control" id="email" name="email" placeholder="Enter your email address (abc.xyz@org.com)"
+                   type="text">
+
+            <label for="nsselection">Namespace:</label>
+            <select class="form-control" id="nsselection" name="nsselection">
+                <option>Default</option>
+                <option>Dev</option>
+                <option>Prod</option>
+            </select>
+
+            <label for="cname">Container Name:</label>
+            <input class="form-control" id="cname" name="cname" placeholder="Enter the name for container/ application" type="text">
+
+            <label for="memreq">Container Memory Requirements:</label>\
+            <input class="form-control" id="memreq" name="memreq" placeholder="Enter the memory required for your app (eg 100Mi)" type="text">
+
+            <label for="cpureq">Container Compute Requirements:</label>\
+            <input class="form-control" id="cpureq" name="cpureq" placeholder="Enter the compute required for your app (eg 100m)" type="text">
+
+        </div>
+        <button class="btn btn-success" type="submit">Sign Up</button>
+    </form>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for message in messages %}
+    {% if "Error" not in message[1]: %}
+    <div class="alert alert-info">
+        <strong>Success! {% print(message[1]) %} </strong></div>
+    {% endif %}
+    {% if "Error" in message[1]: %}
+    <div class="alert alert-warning">
+        <strong> {% print(message[1]) %} </strong></div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+</div>

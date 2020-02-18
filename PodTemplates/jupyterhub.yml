@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+ name: jupyterhub-$$uid$$
+ namespace: $$ns$$
+ labels:
+  app: $$cname$$
+  techcontact: $$email$$
+spec:
+ containers:
+  - name: $$cname$$-container-$$uid$$
+    image: jupyterhub/jupyterhub:latest
+    resources:
+      limits:
+        memory: 2048Mi
+        cpu: 1000m
+      requests:
+        memory: $$memreq$$
+        cpu: $$cpureq$$
+ restartPolicy: Never

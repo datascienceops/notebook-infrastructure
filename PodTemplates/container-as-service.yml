@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+ name: container-self-service
+ namespace: default
+ labels:
+  app: container-self-service
+  techcontact: manasibelhe@gmail.com
+  owner : Manasi Belhe
+spec:
+ containers:
+  - name: container-self-service
+    image: datascienceops/container-self-service:latest
+ restartPolicy: Never
