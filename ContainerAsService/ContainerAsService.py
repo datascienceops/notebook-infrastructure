@@ -18,7 +18,11 @@ class ReusableForm(Form):
     nsselection = TextField('Name:', validators=[validators.required()])
 
 @app.route("/", methods=['GET', 'POST'])
-def hello():
+def home():
+    return render_template('newindex.html')
+
+@app.route("/container-request", methods=['GET', 'POST'])
+def containerrequest():
     form = ReusableForm(request.form)
     print(request.form)
     name=None
