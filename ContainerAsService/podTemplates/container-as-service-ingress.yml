@@ -1,0 +1,9 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: container-as-service-ingress
+  namespace: datascienceops
+spec:
+  backend:
+    serviceName: container-self-service
+    servicePort: 80

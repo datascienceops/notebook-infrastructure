@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Pod
 metadata:
  name: container-self-service
- namespace: default
+ namespace: datascienceops
  labels:
   app: container-self-service
   owner : Manasi-Belhe

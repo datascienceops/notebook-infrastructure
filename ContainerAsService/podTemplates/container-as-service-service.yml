@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: container-self-service
-  namespace: default
+  namespace: datascienceops
   labels:
     app: container-self-service
     techcontact: $$uid$$
@@ -11,6 +11,5 @@ spec:
   - port: 80
     targetPort: 8000
     protocol: TCP
-  type: LoadBalancer
   selector:
     app: container-self-service
