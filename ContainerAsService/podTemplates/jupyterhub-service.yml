@@ -1,16 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: jupyterhub-$$guid$$-service
+  name: jupyterhub-$$uid$$-service
   namespace: $$ns$$
   labels:
-    app: $$project$$
-    techcontact: $$email$$
-    owner: $$name$$
+    app: $$cname$$
+    techcontact: $$uid$$
 spec:
   ports:
   - port: 80
     targetPort: 8000
     protocol: TCP
   selector:
-    app: $$project$$
+    app: $$cname$$

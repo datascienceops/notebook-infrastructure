@@ -5,7 +5,7 @@ metadata:
  namespace: $$ns$$
  labels:
   app: $$cname$$
-  techcontact: $$email$$
+  techcontact: $$uid$$
 spec:
  containers:
   - name: $$cname$$-container-$$uid$$
@@ -13,7 +13,7 @@ spec:
     resources:
       limits:
         memory: 2048Mi
-        cpu: 1000m
+        cpu: 500m
       requests:
         memory: $$memreq$$
         cpu: $$cpureq$$

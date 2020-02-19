@@ -5,7 +5,7 @@ metadata:
   namespace: default
   labels:
     app: container-self-service
-    owner: Manasi-Belhe
+    techcontact: $$uid$$
 spec:
   ports:
   - port: 80

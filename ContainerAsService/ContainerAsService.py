@@ -1,9 +1,11 @@
 from flask import Flask, render_template, flash, request
 from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
+import os
 
 DEBUG = True
 app = Flask(__name__)
 app.config.from_object(__name__)
+app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'
 
 
 class ReusableForm(Form):
@@ -18,6 +20,12 @@ class ReusableForm(Form):
 def hello():
     form = ReusableForm(request.form)
     print(request.form)
+    name=None
+    email=None
+    cname=None
+    cpureq=None
+    memreq=None
+    nsselection=None
     if(request.form != {}):
         print(form.errors)
         if request.method == 'POST':
@@ -32,6 +40,30 @@ def hello():
             # Save the comment here.
             flash('Starting Container Launch')
             # TODO: To add code for launching container here
+            uid = name.lower().replace(" ", "-")
+            replacement_dict = {
+                                   "$$uid$$": uid,
+                                    "$$ns$$": nsselection,
+                                    "$$cname$$": cname,
+                                    "$$email$$": email,
+                                    "$$memreq$$": memreq,
+                                    "$$cpureq$$": cpureq
+            }
+            print("Replacement params are: "+ str(replacement_dict))
+            with open('podTemplates/jupyterhub.yml') as jfile:
+                replaced_file = jfile.read()
+                for key in replacement_dict:
+                    replaced_file = replaced_file.replace(key, replacement_dict[key])
+                print("Replaced File Content: " + replaced_file)
+            newfilename = "podFiles/jupyter-" + uid
+            with open(newfilename, 'w+') as nfile:
+                nfile.write(replaced_file)
+            print("Saved POD spec on local, starting kubernetes POD creation")
+            cmd = "kubectl create -f " + newfilename
+            print("Running command: " + cmd)
+            stream = os.popen(cmd)
+            output = stream.read()
+            print(output)
         else:
             err_str = ""
             if form.errors:
@@ -45,4 +77,4 @@ def hello():
         print("Empty input, no button clicked yet")
         return render_template('index.html', form=form)
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000, debug=True)
+    app.run(host="0.0.0.0", port=9000, debug=True)
