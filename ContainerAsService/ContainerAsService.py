@@ -1,6 +1,7 @@
 from flask import Flask, render_template, flash, request
 from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 import os
+import subprocess
 
 DEBUG = True
 app = Flask(__name__)
@@ -38,8 +39,6 @@ def hello():
 
         if form.validate():
             # Save the comment here.
-            flash('Starting Container Launch')
-            # TODO: To add code for launching container here
             uid = name.lower().replace(" ", "-")
             replacement_dict = {
                                    "$$uid$$": uid,
@@ -61,15 +60,40 @@ def hello():
             print("Saved POD spec on local, starting kubernetes POD creation")
             cmd = "kubectl create -f " + newfilename
             print("Running command: " + cmd)
-            stream = os.popen(cmd)
-            output = stream.read()
-            print(output)
+            logs = "Failed in handling your request"
+            # list of strings representing the command
+            args = ['kubectl', 'create', '-f', newfilename]
+            command_errs = False
+            try:
+                # stdout = subprocess.PIPE lets you redirect the output
+                res = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            except OSError:
+                print("Error while triggering kubectl command")
+                command_errs = True
+
+            if not command_errs:
+                res.wait()  # wait for process to finish; this also sets the returncode variable inside 'res'
+                if res.returncode != 0:
+                    command_errs = True
+                    print("Failed while executing kubectl command")
+                    errors = res.stderr.read()
+                    errors = str(errors, 'utf-8')
+                    logs = "Terminal Logs: {}".format(errors)
+                else:
+                    print("Successfully completed execution")
+                    result = res.stdout.read()
+                    result = str(result, 'utf-8')
+                    logs = "Terminal Logs: {}".format(result)
+                print(logs)
+            if command_errs:
+                err_str = logs
+                flash('Error - ' + str(err_str))
+            else:
+                flash('Successfully created resource')
         else:
             err_str = ""
             if form.errors:
-                for err in form.errors:
-                    err_str += " " + str(err) + " : "
-                    err_str += str(form.errors[err][0])
+                err_str+= "Incomplete form or invalid inputs"
             flash('Error - ' + str(err_str))
 
         return render_template('index.html', form=form)

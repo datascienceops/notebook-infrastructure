@@ -1,9 +1,11 @@
-<title>Container Self Service Portal</title>
+<title>Data Science Self Service Portal</title>
 <link href="static/bootstrap.css" media="screen" rel="stylesheet">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <div class="container">
     <br>
-    <h2>Container Self Service Portal</h2>
+    <h2>Container Request Form</h2>
     <form action="" method="post" role="form">
 
         <div class="form-group ">
@@ -31,21 +33,44 @@
             <input class="form-control-half" id="cpureq" name="cpureq" placeholder="Enter the compute required for your app (eg 100m, MINIMUM 10m, MAXIMUM 100m)" type="text">
 
         </div>
-        <button class="btn btn-success" type="submit">Sign Up</button>
+        <script type="text/javascript">
+			function refreshPage(){
+				    window.location.reload(true);
+				}
+		</script>
+
+        <button class="btn btn-success" type="submit" onclick="refreshPage">Sign Up</button>
     </form>
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
     {% for message in messages %}
     {% if "Error" not in message[1]: %}
-    <div class="alert alert-info">
-        <strong>Success! {% print(message[1]) %} </strong></div>
+            <div class="alert alert-success alert-dismissible" role="alert">
+                  <button type="button" class="close" data-dismiss="alert"></button>
+                  <span>Success! {% print(message[1]) %}</span>
+               <script type="text/javascript">
+                    window.setTimeout(function () {
+                        $(".alert-warning").fadeTo(100, 0).slideUp(250, function () {
+                            $(this).remove();
+                        });
+                    }, 5000);
+                </script>
+            </div>
     {% endif %}
     {% if "Error" in message[1]: %}
-    <div class="alert alert-warning">
-        <strong> {% print(message[1]) %} </strong></div>
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" ></button>
+                <strong> {% print(message[1]) %} </strong>
+                <script type="text/javascript">
+                    window.setTimeout(function () {
+                        $(".alert-warning").fadeTo(100, 0).slideUp(250, function () {
+                            $(this).remove();
+                        });
+                    }, 5000);
+                </script>
+            </div>
     {% endif %}
     {% endfor %}
     {% endif %}
     {% endwith %}
-
 </div>
